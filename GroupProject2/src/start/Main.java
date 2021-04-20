@@ -13,7 +13,7 @@ import timer.Clock;
 
 public class Main {
 	// Ethan
-	//
+	// Zach
 	public static void main(String[] args) {
 		Clock.instance();
 		new Thread() {
