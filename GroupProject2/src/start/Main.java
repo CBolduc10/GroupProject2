@@ -13,6 +13,7 @@ import timer.Clock;
 
 public class Main {
 	// Ethan
+	//
 	public static void main(String[] args) {
 		Clock.instance();
 		new Thread() {
