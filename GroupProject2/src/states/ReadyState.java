@@ -58,7 +58,7 @@ public class ReadyState extends AlarmSystemState {
 	@Override
 	public void enter() {
 		// TODO Auto-generated method stub
-
+		AlarmSystemContext.instance().showReady();
 	}
 
 	@Override

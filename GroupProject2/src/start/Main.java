@@ -6,9 +6,9 @@ import display.GUIDisplay;
  * Test modification 1
  */
 
-import display.MicrowaveDisplay;
+import display.AlarmSystemDisplay;
 import javafx.application.Application;
-import states.MicrowaveContext;
+import states.AlarmSystemContext;
 import timer.Clock;
 
 public class Main {
@@ -28,7 +28,7 @@ public class Main {
 			}
 		} catch (InterruptedException ie) {
 		}
-		MicrowaveDisplay display = GUIDisplay.getInstance();
-		MicrowaveContext.instance().setDisplay(display);
+		AlarmSystemDisplay display = GUIDisplay.getInstance();
+		AlarmSystemContext.instance().setDisplay(display);
 	}
 }

@@ -1,6 +1,7 @@
 package states;
 
 import events.ZoneCheckEvent;
+import events.ZoneUncheckEvent;
 
 public class NotReadyState extends AlarmSystemState {
 	private static NotReadyState instance;
@@ -23,6 +24,7 @@ public class NotReadyState extends AlarmSystemState {
 		}
 		return instance;
 	}
+	
 
 	/**
 	 * handle ZoneCheckEvent event
@@ -32,21 +34,30 @@ public class NotReadyState extends AlarmSystemState {
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
 		count++;
+		System.out.println(count);
 		if (count == 3) {
 			AlarmSystemContext.instance().changeState(ReadyState.instance());
 		}
+	}
+	
+	@Override
+	public void handleEvent(ZoneUncheckEvent event) {
+		count--;
+		System.out.println(count);
 	}
 
 	@Override
 	public void enter() {
 		// TODO Auto-generated method stub
+		AlarmSystemContext.instance().showNotReady();
+		count--;
 
 	}
 
 	@Override
 	public void leave() {
 		// TODO Auto-generated method stub
-
+		AlarmSystemContext.instance().showReady();
 	}
 
 }

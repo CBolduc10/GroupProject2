@@ -1,9 +1,20 @@
 package display;
 
-import buttons.CookButton;
-import buttons.DoorCloseButton;
-import buttons.DoorOpenButton;
 import buttons.GUIButton;
+import buttons.GUICheckBox;
+import buttons.NumericOneButton;
+import buttons.NumericTwoButton;
+import buttons.NumericThreeButton;
+import buttons.NumericFourButton;
+import buttons.NumericFiveButton;
+import buttons.NumericSixButton;
+import buttons.NumericSevenButton;
+import buttons.NumericEightButton;
+import buttons.NumericNineButton;
+import buttons.NumericZeroButton;
+import buttons.ZoneOneCheckBox;
+import buttons.ZoneTwoCheckBox;
+import buttons.ZoneThreeCheckBox;
 
 /**
  * 
@@ -33,24 +44,35 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import states.MicrowaveContext;
+import states.AlarmSystemContext;
 
 /**
  * GUI to implement the MicrowaveDisplay interface A pretty elementary interface
  *
  */
-public class GUIDisplay extends Application implements MicrowaveDisplay {
-    private GUIButton doorCloser;
-    private GUIButton doorOpener;
-    private GUIButton cookButton;
+public class GUIDisplay extends Application implements AlarmSystemDisplay {
+	private GUIButton numeric1Button;
+	private GUIButton numeric2Button;
+	private GUIButton numeric3Button;
+	private GUIButton numeric4Button;
+	private GUIButton numeric5Button;
+	private GUIButton numeric6Button;
+	private GUIButton numeric7Button;
+	private GUIButton numeric8Button;
+	private GUIButton numeric9Button;
+	private GUIButton numeric0Button;
+    private GUICheckBox zone1Check;
+    private GUICheckBox zone2Check;
+    private GUICheckBox zone3Check;
     private Text doorStatus = new Text("Door Closed");
     private Text timerValue = new Text("            ");
     private Text lightStatus = new Text("Light Off");
     private Text cookingStatus = new Text("Not cooking");
-    private static MicrowaveDisplay display;
-    private MicrowaveContext microwaveContext;
+    private Text readyState = new Text("Not Ready");
+    private static AlarmSystemDisplay display;
+    private AlarmSystemContext AlarmSystemContext;
 
-    public static MicrowaveDisplay getInstance() {
+    public static AlarmSystemDisplay getInstance() {
         return display;
     }
 
@@ -59,17 +81,28 @@ public class GUIDisplay extends Application implements MicrowaveDisplay {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        microwaveContext = MicrowaveContext.instance();
-        microwaveContext.setDisplay(this);
+    	AlarmSystemContext = AlarmSystemContext.instance();
+    	AlarmSystemContext.setDisplay(this);
         display = this;
-        doorCloser = new DoorCloseButton("close door");
-        doorOpener = new DoorOpenButton("open door");
-        cookButton = new CookButton("cook");
+        numeric1Button = new NumericOneButton("1");
+        numeric2Button = new NumericTwoButton("2");
+        numeric3Button = new NumericThreeButton("3");
+        numeric4Button = new NumericFourButton("4");
+        numeric5Button = new NumericFiveButton("5");
+        numeric6Button = new NumericSixButton("6");
+        numeric7Button = new NumericSevenButton("7");
+        numeric8Button = new NumericEightButton("8");
+        numeric9Button = new NumericNineButton("9");
+        numeric0Button = new NumericZeroButton("0");
+        zone1Check = new ZoneOneCheckBox("Zone 1");
+        zone2Check = new ZoneTwoCheckBox("Zone 2");
+        zone3Check = new ZoneThreeCheckBox("Zone 3");
 
-        GridPane pane = new GridPane();
+        GridPane pane = new GridPane   ();
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setPadding(new Insets(10, 10, 10, 10));
+        /*
         pane.add(doorStatus, 0, 0);
         pane.add(lightStatus, 1, 0);
         pane.add(timerValue, 2, 0);
@@ -77,14 +110,30 @@ public class GUIDisplay extends Application implements MicrowaveDisplay {
         pane.add(doorCloser, 4, 0);
         pane.add(doorOpener, 5, 0);
         pane.add(cookButton, 6, 0);
-        showDoorClosed();
-        showLightOff();
+        */
+        //Add Keypad
+        pane.add(numeric1Button, 0, 0);
+        pane.add(numeric2Button, 1, 0);
+        pane.add(numeric3Button, 2, 0);
+        pane.add(numeric4Button, 0, 1);
+        pane.add(numeric5Button, 1, 1);
+        pane.add(numeric6Button, 2, 1);
+        pane.add(numeric7Button, 0, 2);
+        pane.add(numeric8Button, 1, 2);
+        pane.add(numeric9Button, 2, 2);
+        pane.add(numeric0Button, 1, 3);
+        //Add Check Boxes
+        pane.add(zone1Check, 0, 4);
+        pane.add(zone2Check, 1, 4);
+        pane.add(zone3Check, 2, 4);
+        //Add State Identifier
+        pane.add(readyState, 0, 5);
         showTimeLeft(0);
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Microwave Version 2");
         try {
-            while (microwaveContext == null) {
+            while (AlarmSystemContext == null) {
                 Thread.sleep(1000);
             }
         } catch (Exception e) {
@@ -99,63 +148,21 @@ public class GUIDisplay extends Application implements MicrowaveDisplay {
         });
     }
 
-    /**
-     * Indicate that the light is on
-     */
+    //Show ready
     @Override
-    public void showLightOn() {
-        lightStatus.setText("Light On");
+    public void showReady() {
+    	readyState.setText("Ready");
     }
-
-    /**
-     * Indicate that the light is off
-     */
+    
+    //Show not ready
     @Override
-    public void showLightOff() {
-        lightStatus.setText("Light Off");
+    public void showNotReady() {
+    	readyState.setText("Not Ready");
     }
-
-    /**
-     * Indicate that the door is closed
-     */
-    @Override
-    public void showDoorClosed() {
-        doorStatus.setText("Door Closed");
-    }
-
-    /**
-     * Indicate that the door is opened
-     */
-    @Override
-    public void showDoorOpened() {
-        doorStatus.setText("Door Opened");
-    }
-
-    /**
-     * display the remaining time
-     * 
-     * @param the
-     *            value remaining
-     */
+    
     @Override
     public void showTimeLeft(int value) {
-        timerValue.setText(" " + value);
-    }
-
-    /**
-     * Indicate that it is cooking
-     */
-    @Override
-    public void showCooking() {
-        cookingStatus.setText("Cooking");
-    }
-
-    /**
-     * Indicate that cooking is done
-     */
-    @Override
-    public void showNotCooking() {
-        cookingStatus.setText("Not cooking");
+    	
     }
 
 }
