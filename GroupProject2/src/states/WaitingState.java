@@ -6,6 +6,7 @@ import events.ZoneCheckEvent;
 import events.ZoneUncheckEvent;
 import timer.Notifiable;
 import timer.Timer;
+//import states.ReadyState;
 
 public class WaitingState extends AlarmSystemState implements Notifiable {
 	private static WaitingState instance;
@@ -30,22 +31,20 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 		return instance;
 	}
 
-	/**
-	 * Process door open request
-	 */
+	
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
 		count--;
 		NotReadyState.instance().setCount(count);
+		System.out.println(count);
 	}
 
-	/**
-	 * Process door open request
-	 */
+	
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
 		count++;
 		NotReadyState.instance().setCount(count);
+		System.out.println(count);
 	}
 
 	/**
@@ -77,7 +76,7 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	@Override
 	public void enter() {
 		count = NotReadyState.instance().getCount();
-		timer = new Timer(this, 60);
+		timer = new Timer(this, 5);
 		AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue());
 	}
 

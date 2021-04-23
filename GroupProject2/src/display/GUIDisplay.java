@@ -2,6 +2,9 @@ package display;
 
 import buttons.GUIButton;
 import buttons.GUICheckBox;
+import buttons.StayButton;
+import buttons.AwayButton;
+import buttons.CancelButton;
 import buttons.NumericOneButton;
 import buttons.NumericTwoButton;
 import buttons.NumericThreeButton;
@@ -51,6 +54,9 @@ import states.AlarmSystemContext;
  *
  */
 public class GUIDisplay extends Application implements AlarmSystemDisplay {
+	private GUIButton awayButton;
+	private GUIButton stayButton;
+	private GUIButton cancelButton;
 	private GUIButton numeric1Button;
 	private GUIButton numeric2Button;
 	private GUIButton numeric3Button;
@@ -65,6 +71,8 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
     private GUICheckBox zone2Check;
     private GUICheckBox zone3Check;
     private Text readyState = new Text("Not Ready");
+    private Text alarmState = new Text("Not Armed");
+    private Text timerValue = new Text("         ");
     private static AlarmSystemDisplay display;
     private AlarmSystemContext AlarmSystemContext;
 
@@ -80,6 +88,9 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
     	AlarmSystemContext = AlarmSystemContext.instance();
     	AlarmSystemContext.setDisplay(this);
         display = this;
+        stayButton = new StayButton("Stay");
+        awayButton = new AwayButton("Away");
+        cancelButton = new CancelButton("Cancel");
         numeric1Button = new NumericOneButton("1");
         numeric2Button = new NumericTwoButton("2");
         numeric3Button = new NumericThreeButton("3");
@@ -124,6 +135,11 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
         pane.add(zone3Check, 2, 4);
         //Add State Identifier
         pane.add(readyState, 0, 5);
+        pane.add(alarmState, 0, 6);
+        pane.add(stayButton, 0, 7);
+        pane.add(awayButton, 1, 7);
+        pane.add(cancelButton, 2, 7);
+        pane.add(timerValue, 1, 8);
         showTimeLeft(0);
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
@@ -156,9 +172,21 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
     	readyState.setText("Not Ready");
     }
     
+  //Show stay
+    @Override
+    public void showStay() {
+    	readyState.setText("Stay Alarmed");
+    }
+    
+  //Show away
+    @Override
+    public void showAway() {
+    	readyState.setText("Away Alarmed");
+    }
+    
     @Override
     public void showTimeLeft(int value) {
-    	
+        timerValue.setText(" " + value);
     }
 
 }

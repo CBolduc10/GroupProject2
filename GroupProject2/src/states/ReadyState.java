@@ -55,6 +55,7 @@ public class ReadyState extends AlarmSystemState {
 
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
+		NotReadyState.instance().setCount(NotReadyState.instance().getCount() - 1);
 		AlarmSystemContext.instance().changeState(NotReadyState.instance());
 	}
 
