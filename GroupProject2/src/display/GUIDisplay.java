@@ -19,6 +19,7 @@ import buttons.ZoneOneCheckBox;
 import buttons.ZoneTwoCheckBox;
 import buttons.ZoneThreeCheckBox;
 
+
 /**
  * 
  * @author Brahma Dathan and Sarnath Ramnath
@@ -43,11 +44,13 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.*;
+//import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import states.AlarmSystemContext;
+import javafx.geometry.Pos;
 
 /**
  * GUI to implement the MicrowaveDisplay interface A pretty elementary interface
@@ -70,9 +73,7 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
     private GUICheckBox zone1Check;
     private GUICheckBox zone2Check;
     private GUICheckBox zone3Check;
-    private Text readyState = new Text("Not Ready");
-    private Text alarmState = new Text("Not Armed");
-    private Text timerValue = new Text("         ");
+    private TextField message = new TextField("Not Ready");
     private static AlarmSystemDisplay display;
     private AlarmSystemContext AlarmSystemContext;
 
@@ -88,6 +89,16 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
     	AlarmSystemContext = AlarmSystemContext.instance();
     	AlarmSystemContext.setDisplay(this);
         display = this;
+        
+        /**
+         * Creates two containers that will help to format the GUI Display
+         */
+        VBox vbox = new VBox();
+        HBox hbox = new HBox();
+        
+        /**
+         * Creates all buttons / check boxes for display.
+         */
         stayButton = new StayButton("Stay");
         awayButton = new AwayButton("Away");
         cancelButton = new CancelButton("Cancel");
@@ -105,43 +116,71 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
         zone2Check = new ZoneTwoCheckBox("Zone 2");
         zone3Check = new ZoneThreeCheckBox("Zone 3");
 
-        GridPane pane = new GridPane   ();
-        pane.setHgap(10);
-        pane.setVgap(10);
-        pane.setPadding(new Insets(10, 10, 10, 10));
-        /*
-        pane.add(doorStatus, 0, 0);
-        pane.add(lightStatus, 1, 0);
-        pane.add(timerValue, 2, 0);
-        pane.add(cookingStatus, 3, 0);
-        pane.add(doorCloser, 4, 0);
-        pane.add(doorOpener, 5, 0);
-        pane.add(cookButton, 6, 0);
-        */
-        //Add Keypad
-        pane.add(numeric1Button, 0, 0);
-        pane.add(numeric2Button, 1, 0);
-        pane.add(numeric3Button, 2, 0);
-        pane.add(numeric4Button, 0, 1);
-        pane.add(numeric5Button, 1, 1);
-        pane.add(numeric6Button, 2, 1);
-        pane.add(numeric7Button, 0, 2);
-        pane.add(numeric8Button, 1, 2);
-        pane.add(numeric9Button, 2, 2);
-        pane.add(numeric0Button, 1, 3);
-        //Add Check Boxes
-        pane.add(zone1Check, 0, 4);
-        pane.add(zone2Check, 1, 4);
-        pane.add(zone3Check, 2, 4);
-        //Add State Identifier
-        pane.add(readyState, 0, 5);
-        pane.add(alarmState, 0, 6);
-        pane.add(stayButton, 0, 7);
-        pane.add(awayButton, 1, 7);
-        pane.add(cancelButton, 2, 7);
-        pane.add(timerValue, 1, 8);
-        showTimeLeft(0);
-        Scene scene = new Scene(pane);
+        /**
+         * Creates three GridPane objects, one for keypad, one for the textField,
+         * and the third for the zones / control buttons.
+         */
+        GridPane controlPane = new GridPane();
+        GridPane keypadPane = new GridPane();
+        GridPane textFieldPane = new GridPane();
+        
+        /**
+         * Formats the controlpane.
+         */
+        controlPane.setHgap(10);
+        controlPane.setVgap(5);
+        controlPane.setPadding(new Insets(5, 5, 5, 5));
+        
+        /**
+         * Formats the textField object and textFieldPane.
+         */
+        message.setMinWidth(200);
+        message.setMinHeight(75);
+        message.setAlignment(Pos.TOP_LEFT);
+        textFieldPane.setPadding(new Insets(5, 5, 0, 5));
+        
+        /**
+         * Format the keyboardPane
+         */
+        keypadPane.setPadding(new Insets(5, 5, 0, 5));
+        
+        /**
+         * add all keypad buttons and format them into a standard layout in their pane.
+         */
+        keypadPane.add(numeric1Button, 0, 0);
+        keypadPane.add(numeric2Button, 1, 0);
+        keypadPane.add(numeric3Button, 2, 0);
+        keypadPane.add(numeric4Button, 0, 1);
+        keypadPane.add(numeric5Button, 1, 1);
+        keypadPane.add(numeric6Button, 2, 1);
+        keypadPane.add(numeric7Button, 0, 2);
+        keypadPane.add(numeric8Button, 1, 2);
+        keypadPane.add(numeric9Button, 2, 2);
+        keypadPane.add(numeric0Button, 1, 3);
+
+        /**
+         * Add textField object to textFieldPane
+         */
+        textFieldPane.add(message, 0, 0);
+
+        /**
+         * Add all buttons to controlPane
+         */
+        controlPane.add(zone1Check, 0, 4);
+        controlPane.add(zone2Check, 1, 4);
+        controlPane.add(zone3Check, 2, 4);
+        controlPane.add(stayButton, 0, 7);
+        controlPane.add(awayButton, 1, 7);
+        controlPane.add(cancelButton, 2, 7);
+
+        /**
+         * Sets hbox to include two columns, with keypadPane on the left, and textFieldPane on the right.
+         * Then, sets vbox to include the hbox on the top, and controlPane on the bottom.
+         * This gives us a three sector layout for the security GUI.
+         */
+        hbox.getChildren().addAll(keypadPane, textFieldPane);
+        vbox.getChildren().addAll(hbox, controlPane);
+        Scene scene = new Scene(vbox);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Alarm System PRE-ALPHA 1.0");
         try {
@@ -163,30 +202,30 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
     //Show ready
     @Override
     public void showReady() {
-    	readyState.setText("Ready");
+    	message.setText("Ready");
     }
     
     //Show not ready
     @Override
     public void showNotReady() {
-    	readyState.setText("Not Ready");
+    	message.setText("Not Ready");
     }
     
   //Show stay
     @Override
     public void showStay() {
-    	readyState.setText("Stay Alarmed");
+    	message.setText("Stay Alarmed");
     }
     
   //Show away
     @Override
     public void showAway() {
-    	readyState.setText("Away Alarmed");
+    	message.setText("Away Alarmed");
     }
     
     @Override
     public void showTimeLeft(int value) {
-        timerValue.setText(" " + value);
+        message.setText("Waiting: " + value);
     }
 
 }
