@@ -23,4 +23,7 @@ public class AwayEvent extends AlarmSystemEvent {
 		}
 		return instance;
 	}
+	
+	//@Override
+	//public 
 }
