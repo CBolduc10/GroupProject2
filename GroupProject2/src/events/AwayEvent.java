@@ -2,6 +2,7 @@ package events;
 
 public class AwayEvent extends AlarmSystemEvent {
 	private static AwayEvent instance;
+	private boolean value = true;
 
 	/**
 	 * Private for singleton
