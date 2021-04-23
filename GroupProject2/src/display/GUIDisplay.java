@@ -64,10 +64,6 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
     private GUICheckBox zone1Check;
     private GUICheckBox zone2Check;
     private GUICheckBox zone3Check;
-    private Text doorStatus = new Text("Door Closed");
-    private Text timerValue = new Text("            ");
-    private Text lightStatus = new Text("Light Off");
-    private Text cookingStatus = new Text("Not cooking");
     private Text readyState = new Text("Not Ready");
     private static AlarmSystemDisplay display;
     private AlarmSystemContext AlarmSystemContext;
@@ -131,7 +127,7 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
         showTimeLeft(0);
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Microwave Version 2");
+        primaryStage.setTitle("Alarm System PRE-ALPHA 1.0");
         try {
             while (AlarmSystemContext == null) {
                 Thread.sleep(1000);

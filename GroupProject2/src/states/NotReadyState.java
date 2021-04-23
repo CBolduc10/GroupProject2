@@ -34,7 +34,6 @@ public class NotReadyState extends AlarmSystemState {
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
 		count++;
-		System.out.println(count);
 		if (count == 3) {
 			AlarmSystemContext.instance().changeState(ReadyState.instance());
 		}
@@ -43,7 +42,6 @@ public class NotReadyState extends AlarmSystemState {
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
 		count--;
-		System.out.println(count);
 	}
 
 	@Override
