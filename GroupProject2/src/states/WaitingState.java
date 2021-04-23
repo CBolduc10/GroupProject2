@@ -6,12 +6,11 @@ import events.ZoneCheckEvent;
 import events.ZoneUncheckEvent;
 import timer.Notifiable;
 import timer.Timer;
-//import states.ReadyState;
 
 public class WaitingState extends AlarmSystemState implements Notifiable {
 	private static WaitingState instance;
 	private Timer timer;
-	private int count;
+	// private int count;
 
 	/**
 	 * Private for the singleton pattern
@@ -31,20 +30,20 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 		return instance;
 	}
 
-	
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
-		count--;
-		NotReadyState.instance().setCount(count);
-		System.out.println(count);
+		NotReadyState.count--;
+		// count--;
+		// NotReadyState.instance().setCount(count);
+		System.out.println(NotReadyState.count);
 	}
 
-	
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
-		count++;
-		NotReadyState.instance().setCount(count);
-		System.out.println(count);
+		NotReadyState.count++;
+		// count++;
+		// NotReadyState.instance().setCount(count);
+		System.out.println(NotReadyState.count);
 	}
 
 	/**
@@ -61,7 +60,7 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	@Override
 	public void handleEvent(TimerRanOutEvent event) {
 		AlarmSystemContext.instance().showTimeLeft(0);
-		if (count < 3) {
+		if (NotReadyState.count < 3) {
 			AlarmSystemContext.instance().changeState(NotReadyState.instance());
 		} else {
 			AlarmSystemContext.instance().changeState(ArmedState.instance());
@@ -75,7 +74,7 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void enter() {
-		count = NotReadyState.instance().getCount();
+		// count = NotReadyState.instance().getCount();
 		timer = new Timer(this, 5);
 		AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue());
 	}

@@ -5,7 +5,8 @@ import events.ZoneUncheckEvent;
 
 public class NotReadyState extends AlarmSystemState {
 	private static NotReadyState instance;
-	private int count = 0;
+	// private int count = 0;
+	static int count = 0;
 
 	/**
 	 * Private constructor for the singleton pattern
@@ -49,7 +50,7 @@ public class NotReadyState extends AlarmSystemState {
 	public void enter() {
 		// TODO Auto-generated method stub
 		AlarmSystemContext.instance().showNotReady();
-		//count--;
+		// count--;
 		System.out.println(count);
 	}
 
@@ -59,12 +60,10 @@ public class NotReadyState extends AlarmSystemState {
 		AlarmSystemContext.instance().showReady();
 	}
 
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
+	/*
+	 * public int getCount() { return count; }
+	 * 
+	 * public void setCount(int count) { this.count = count; }
+	 */
 
 }
