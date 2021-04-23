@@ -16,7 +16,7 @@ public class ZoneThreeCheckBox extends GUICheckBox
 
 	@Override
 	public void handle(ActionEvent event) {
-		if (this.isSelected()) {
+		if (!this.isSelected()) {
 			AlarmSystemContext.instance()
 					.handleEvent(ZoneUncheckEvent.instance());
 		} else {
