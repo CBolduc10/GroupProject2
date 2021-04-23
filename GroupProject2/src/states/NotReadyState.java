@@ -24,7 +24,6 @@ public class NotReadyState extends AlarmSystemState {
 		}
 		return instance;
 	}
-	
 
 	/**
 	 * handle ZoneCheckEvent event
@@ -38,7 +37,7 @@ public class NotReadyState extends AlarmSystemState {
 			AlarmSystemContext.instance().changeState(ReadyState.instance());
 		}
 	}
-	
+
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
 		count--;
@@ -56,6 +55,14 @@ public class NotReadyState extends AlarmSystemState {
 	public void leave() {
 		// TODO Auto-generated method stub
 		AlarmSystemContext.instance().showReady();
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 }
