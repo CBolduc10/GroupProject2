@@ -2,6 +2,7 @@ package states;
 
 public class ArmedState extends AlarmSystemState {
 	private static ArmedState instance;
+	private boolean armedStateValue;
 
 	/**
 	 * Private constructor for the singleton pattern
@@ -23,14 +24,26 @@ public class ArmedState extends AlarmSystemState {
 
 	@Override
 	public void enter() {
-		// TODO Auto-generated method stub
-
+		setArmedStateValue(ReadyState.instance().isArmedState());
+		if (armedStateValue) {
+			AlarmSystemContext.instance().showAway();
+		} else {
+			AlarmSystemContext.instance().showStay();
+		}
 	}
 
 	@Override
 	public void leave() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public boolean isArmedStateValue() {
+		return armedStateValue;
+	}
+
+	public void setArmedStateValue(boolean armedStateValue) {
+		this.armedStateValue = armedStateValue;
 	}
 
 }

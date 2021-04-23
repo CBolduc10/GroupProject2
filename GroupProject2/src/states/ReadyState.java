@@ -6,6 +6,7 @@ import events.ZoneUncheckEvent;
 
 public class ReadyState extends AlarmSystemState {
 	private static ReadyState instance;
+	private boolean armedState;
 
 	/**
 	 * Private constructor for the singleton pattern
@@ -33,6 +34,7 @@ public class ReadyState extends AlarmSystemState {
 	@Override
 	public void handleEvent(StayEvent event) {
 		AlarmSystemContext.instance().changeState(WaitingState.instance());
+		armedState = true;
 	}
 
 	/**
@@ -43,6 +45,7 @@ public class ReadyState extends AlarmSystemState {
 	@Override
 	public void handleEvent(AwayEvent event) {
 		AlarmSystemContext.instance().changeState(WaitingState.instance());
+		armedState = false;
 	}
 
 	/**
@@ -65,6 +68,10 @@ public class ReadyState extends AlarmSystemState {
 	public void leave() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public boolean isArmedState() {
+		return armedState;
 	}
 
 }

@@ -60,7 +60,7 @@ public class AlarmSystemContext {
 		currentState.leave();
 		currentState = nextState;
 		currentState.enter();
-	} 
+	}
 
 	public void showTimeLeft(int time) {
 		display.showTimeLeft(time);
@@ -93,12 +93,20 @@ public class AlarmSystemContext {
 	public void handleEvent(ZoneUncheckEvent event) {
 		currentState.handleEvent(event);
 	}
-	
+
 	public void showReady() {
-        display.showReady();
-    }
-	
+		display.showReady();
+	}
+
 	public void showNotReady() {
-        display.showNotReady();
-    }
+		display.showNotReady();
+	}
+
+	public void showAway() {
+		display.showAway();
+	}
+
+	public void showStay() {
+		display.showStay();
+	}
 }

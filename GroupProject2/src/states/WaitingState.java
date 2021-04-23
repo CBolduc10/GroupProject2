@@ -2,6 +2,7 @@ package states;
 
 import events.TimerRanOutEvent;
 import events.TimerTickedEvent;
+import events.ZoneCheckEvent;
 import events.ZoneUncheckEvent;
 import timer.Notifiable;
 import timer.Timer;
@@ -9,7 +10,7 @@ import timer.Timer;
 public class WaitingState extends AlarmSystemState implements Notifiable {
 	private static WaitingState instance;
 	private Timer timer;
-	private boolean zoneChecked = true;
+	private int count;
 
 	/**
 	 * Private for the singleton pattern
@@ -34,7 +35,17 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
-		zoneChecked = false;
+		count--;
+		NotReadyState.instance().setCount(count);
+	}
+
+	/**
+	 * Process door open request
+	 */
+	@Override
+	public void handleEvent(ZoneCheckEvent event) {
+		count++;
+		NotReadyState.instance().setCount(count);
 	}
 
 	/**
@@ -42,7 +53,7 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(TimerTickedEvent event) {
-		MicrowaveContext.instance().showTimeLeft(timer.getTimeValue());
+		AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue());
 	}
 
 	/**
@@ -51,7 +62,7 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	@Override
 	public void handleEvent(TimerRanOutEvent event) {
 		AlarmSystemContext.instance().showTimeLeft(0);
-		if (zoneChecked = false) {
+		if (count < 3) {
 			AlarmSystemContext.instance().changeState(NotReadyState.instance());
 		} else {
 			AlarmSystemContext.instance().changeState(ArmedState.instance());
@@ -65,8 +76,9 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void enter() {
+		count = NotReadyState.instance().getCount();
 		timer = new Timer(this, 60);
-		MicrowaveContext.instance().showTimeLeft(timer.getTimeValue());
+		AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue());
 	}
 
 	@Override

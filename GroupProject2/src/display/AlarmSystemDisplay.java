@@ -7,8 +7,12 @@ public interface AlarmSystemDisplay {
 	 * @param time remaining time
 	 */
 	public void showTimeLeft(int time);
-	
+
 	public void showReady();
-	
+
 	public void showNotReady();
+
+	public void showAway();
+
+	public void showStay();
 }
