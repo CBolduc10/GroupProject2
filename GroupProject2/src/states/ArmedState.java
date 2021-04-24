@@ -2,6 +2,7 @@ package states;
 
 public class ArmedState extends AlarmSystemState {
 	private static ArmedState instance;
+	// private boolean armedStateValue;
 	private boolean armedStateValue;
 
 	/**
@@ -24,11 +25,12 @@ public class ArmedState extends AlarmSystemState {
 
 	@Override
 	public void enter() {
-		setArmedStateValue(ReadyState.instance().isArmedState());
+		// setArmedStateValue(ReadyState.instance().isArmedState());
+		armedStateValue = ReadyState.armedStateValue;
 		if (armedStateValue) {
-			AlarmSystemContext.instance().showAway();
-		} else {
 			AlarmSystemContext.instance().showStay();
+		} else {
+			AlarmSystemContext.instance().showAway();
 		}
 	}
 
@@ -38,12 +40,11 @@ public class ArmedState extends AlarmSystemState {
 
 	}
 
-	public boolean isArmedStateValue() {
-		return armedStateValue;
-	}
-
-	public void setArmedStateValue(boolean armedStateValue) {
-		this.armedStateValue = armedStateValue;
-	}
+	/*
+	 * public boolean isArmedStateValue() { return armedStateValue; }
+	 * 
+	 * public void setArmedStateValue(boolean armedStateValue) {
+	 * this.armedStateValue = armedStateValue; }
+	 */
 
 }
