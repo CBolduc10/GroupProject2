@@ -18,6 +18,7 @@ import buttons.NumericZeroButton;
 import buttons.ZoneOneCheckBox;
 import buttons.ZoneTwoCheckBox;
 import buttons.ZoneThreeCheckBox;
+import buttons.MotionDetectorButton;
 
 
 /**
@@ -60,6 +61,7 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
 	private GUIButton awayButton;
 	private GUIButton stayButton;
 	private GUIButton cancelButton;
+	private GUIButton motionButton;
 	private GUIButton numeric1Button;
 	private GUIButton numeric2Button;
 	private GUIButton numeric3Button;
@@ -102,6 +104,7 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
         stayButton = new StayButton("Stay");
         awayButton = new AwayButton("Away");
         cancelButton = new CancelButton("Cancel");
+        motionButton = new MotionDetectorButton("Motion Detector");
         numeric1Button = new NumericOneButton("1");
         numeric2Button = new NumericTwoButton("2");
         numeric3Button = new NumericThreeButton("3");
@@ -169,6 +172,7 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
         controlPane.add(zone1Check, 0, 4);
         controlPane.add(zone2Check, 1, 4);
         controlPane.add(zone3Check, 2, 4);
+        controlPane.add(motionButton, 3, 4);
         controlPane.add(stayButton, 0, 7);
         controlPane.add(awayButton, 1, 7);
         controlPane.add(cancelButton, 2, 7);
