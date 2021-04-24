@@ -6,7 +6,7 @@ public interface AlarmSystemDisplay {
 	 * 
 	 * @param time remaining time
 	 */
-	public void showTimeLeft(int time);
+	public void showTimeLeft(int time, String string);
 
 	public void showReady();
 
@@ -15,4 +15,10 @@ public interface AlarmSystemDisplay {
 	public void showAway();
 
 	public void showStay();
+
+	public void showBreached();
+
+	public void showEnterPassword();
+
+	public void showPassword(String passwordEntry);
 }
