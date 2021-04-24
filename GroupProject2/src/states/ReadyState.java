@@ -6,7 +6,6 @@ import events.ZoneUncheckEvent;
 
 public class ReadyState extends AlarmSystemState {
 	private static ReadyState instance;
-	// private boolean armedState;
 	static boolean armedStateValue;
 
 	/**
@@ -31,34 +30,29 @@ public class ReadyState extends AlarmSystemState {
 	 * handle stay event
 	 * 
 	 */
-
 	@Override
 	public void handleEvent(StayEvent event) {
-		AlarmSystemContext.instance().changeState(WaitingState.instance());
-		// armedState = true;
 		armedStateValue = true;
+		AlarmSystemContext.instance().changeState(WaitingState.instance());
 	}
 
 	/**
 	 * handle away event
 	 * 
 	 */
-
 	@Override
 	public void handleEvent(AwayEvent event) {
-		AlarmSystemContext.instance().changeState(WaitingState.instance());
-		// armedState = false;
 		armedStateValue = false;
+		AlarmSystemContext.instance().changeState(WaitingState.instance());
 	}
 
 	/**
 	 * handle zone unchecked event
 	 * 
 	 */
-
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
-		NotReadyState.count -= 1;
+		NotReadyState.count--;
 		// NotReadyState.instance().setCount(NotReadyState.instance().getCount()
 		// - 1);
 		AlarmSystemContext.instance().changeState(NotReadyState.instance());
@@ -75,9 +69,5 @@ public class ReadyState extends AlarmSystemState {
 		// TODO Auto-generated method stub
 
 	}
-
-	/*
-	 * public boolean isArmedState() { return armedState; }
-	 */
 
 }

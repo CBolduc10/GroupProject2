@@ -11,6 +11,7 @@ import events.ZoneCheckEvent;
 import events.ZoneUncheckEvent;
 
 public abstract class AlarmSystemState {
+
 	/**
 	 * Initializes the state
 	 */
@@ -58,8 +59,10 @@ public abstract class AlarmSystemState {
 
 	/**
 	 * Process enter password request
+	 * 
+	 * @param number
 	 */
-	public void handleEvent(EnterPasswordEvent event) {
+	public void handleEvent(EnterPasswordEvent event, int number) {
 
 	}
 

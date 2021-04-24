@@ -62,8 +62,8 @@ public class AlarmSystemContext {
 		currentState.enter();
 	}
 
-	public void showTimeLeft(int time) {
-		display.showTimeLeft(time);
+	public void showTimeLeft(int time, String value) {
+		display.showTimeLeft(time, value);
 	}
 
 	public void handleEvent(AwayEvent event) {
@@ -78,8 +78,8 @@ public class AlarmSystemContext {
 		currentState.handleEvent(event);
 	}
 
-	public void handleEvent(EnterPasswordEvent event) {
-		currentState.handleEvent(event);
+	public void handleEvent(EnterPasswordEvent event, int number) {
+		currentState.handleEvent(event, number);
 	}
 
 	public void handleEvent(MotionDetectionEvent event) {
@@ -109,4 +109,19 @@ public class AlarmSystemContext {
 	public void showStay() {
 		display.showStay();
 	}
+
+	public void showBreached() {
+		display.showBreached();
+	}
+
+	public void showEnterPassword() {
+		display.showEnterPassword();
+
+	}
+
+	public void showPassword(String passwordEntry) {
+		display.showPassword(passwordEntry);
+
+	}
+
 }

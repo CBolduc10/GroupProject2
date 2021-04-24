@@ -6,10 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import states.AlarmSystemContext;
 
-public class ZoneTwoCheckBox extends GUICheckBox
+public class ZoneCheckBox extends GUICheckBox
 		implements EventHandler<ActionEvent> {
 
-	public ZoneTwoCheckBox(String string) {
+	public ZoneCheckBox(String string) {
 		super(string);
 		// TODO Auto-generated constructor stub
 	}
@@ -24,5 +24,4 @@ public class ZoneTwoCheckBox extends GUICheckBox
 					.handleEvent(ZoneCheckEvent.instance());
 		}
 	}
-
 }

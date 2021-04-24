@@ -10,6 +10,9 @@ import timer.Timer;
 public class WaitingState extends AlarmSystemState implements Notifiable {
 	private static WaitingState instance;
 	private Timer timer;
+	private boolean armedStateValue;
+	private String away = "away";
+	private String stay = "stay";
 	// private int count;
 
 	/**
@@ -51,7 +54,13 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(TimerTickedEvent event) {
-		AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue());
+		if (ReadyState.armedStateValue) {
+			AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue(),
+					stay);
+		} else {
+			AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue(),
+					away);
+		}
 	}
 
 	/**
@@ -59,7 +68,7 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(TimerRanOutEvent event) {
-		AlarmSystemContext.instance().showTimeLeft(0);
+		AlarmSystemContext.instance().showTimeLeft(0, null);
 		if (NotReadyState.count < 3) {
 			AlarmSystemContext.instance().changeState(NotReadyState.instance());
 		} else {
@@ -74,16 +83,22 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void enter() {
-		// count = NotReadyState.instance().getCount();
+		armedStateValue = ReadyState.armedStateValue;
 		timer = new Timer(this, 5);
-		AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue());
+		if (armedStateValue) {
+			AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue(),
+					stay);
+		} else {
+			AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue(),
+					away);
+		}
 	}
 
 	@Override
 	public void leave() {
 		timer.stop();
 		timer = null;
-		AlarmSystemContext.instance().showTimeLeft(0);
+		AlarmSystemContext.instance().showTimeLeft(0, null);
 	}
 
 }

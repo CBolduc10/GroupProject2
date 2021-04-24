@@ -1,8 +1,11 @@
 package states;
 
+import events.CancelEvent;
+import events.MotionDetectionEvent;
+import events.ZoneUncheckEvent;
+
 public class ArmedState extends AlarmSystemState {
 	private static ArmedState instance;
-	// private boolean armedStateValue;
 	private boolean armedStateValue;
 
 	/**
@@ -24,8 +27,29 @@ public class ArmedState extends AlarmSystemState {
 	}
 
 	@Override
+	public void handleEvent(ZoneUncheckEvent event) {
+		NotReadyState.count--;
+		if (armedStateValue) {
+			AlarmSystemContext.instance().changeState(AlarmState.instance());
+		} else {
+			AlarmSystemContext.instance().changeState(WarningState.instance());
+		}
+	}
+
+	@Override
+	public void handleEvent(CancelEvent event) {
+		AlarmSystemContext.instance().changeState(CancelState.instance());
+	}
+
+	@Override
+	public void handleEvent(MotionDetectionEvent event) {
+		if (!armedStateValue) {
+			AlarmSystemContext.instance().changeState(WarningState.instance());
+		}
+	}
+
+	@Override
 	public void enter() {
-		// setArmedStateValue(ReadyState.instance().isArmedState());
 		armedStateValue = ReadyState.armedStateValue;
 		if (armedStateValue) {
 			AlarmSystemContext.instance().showStay();
@@ -39,12 +63,4 @@ public class ArmedState extends AlarmSystemState {
 		// TODO Auto-generated method stub
 
 	}
-
-	/*
-	 * public boolean isArmedStateValue() { return armedStateValue; }
-	 * 
-	 * public void setArmedStateValue(boolean armedStateValue) {
-	 * this.armedStateValue = armedStateValue; }
-	 */
-
 }
