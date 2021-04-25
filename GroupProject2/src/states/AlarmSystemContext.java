@@ -13,12 +13,15 @@ public class AlarmSystemContext {
 	private AlarmSystemDisplay display;
 	private AlarmSystemState currentState;
 	private static AlarmSystemContext instance;
+	private int count;
+	private boolean armedStateValue;
 
 	/**
 	 * Make it a singleton
 	 */
 	private AlarmSystemContext() {
 		instance = this;
+		count = 0;
 		currentState = NotReadyState.instance();
 	}
 
@@ -60,6 +63,26 @@ public class AlarmSystemContext {
 		currentState.leave();
 		currentState = nextState;
 		currentState.enter();
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void increment() {
+		count++;
+	}
+
+	public void decrement() {
+		count--;
+	}
+
+	public boolean getArmedStateValue() {
+		return armedStateValue;
+	}
+
+	public void setArmedStateValue(boolean armedStateValue) {
+		this.armedStateValue = armedStateValue;
 	}
 
 	public void showTimeLeft(int time, String value) {

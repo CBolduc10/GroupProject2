@@ -7,7 +7,6 @@ import password.Password;
 
 public class CancelState extends AlarmSystemState {
 	private static CancelState instance;
-	private Password password = new Password();
 
 	/**
 	 * Private constructor for the singleton pattern
@@ -29,14 +28,15 @@ public class CancelState extends AlarmSystemState {
 
 	@Override
 	public void handleEvent(EnterPasswordEvent event, int number) {
-		boolean entry = password.entry(number);
-		if (password.toString().isEmpty()) {
+		boolean entry = Password.instance().entry(number);
+		if (Password.instance().toString().isEmpty()) {
 			AlarmSystemContext.instance().showEnterPassword();
 		} else {
-			AlarmSystemContext.instance().showPassword(password.toString());
+			AlarmSystemContext.instance()
+					.showPassword(Password.instance().toString());
 		}
 		if (entry) {
-			if (NotReadyState.count < 3) {
+			if (AlarmSystemContext.instance().getCount() < 3) {
 				AlarmSystemContext.instance()
 						.changeState(NotReadyState.instance());
 			} else {
@@ -48,14 +48,14 @@ public class CancelState extends AlarmSystemState {
 
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
-		NotReadyState.count--;
-		System.out.println(NotReadyState.count);
+		AlarmSystemContext.instance().decrement();
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
-		NotReadyState.count++;
-		System.out.println(NotReadyState.count);
+		AlarmSystemContext.instance().decrement();
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	@Override
@@ -65,8 +65,7 @@ public class CancelState extends AlarmSystemState {
 
 	@Override
 	public void leave() {
-		// TODO Auto-generated method stub
-
+		Password.instance().clear();
 	}
 
 }

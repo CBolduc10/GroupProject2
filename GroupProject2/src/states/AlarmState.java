@@ -7,7 +7,6 @@ import password.Password;
 
 public class AlarmState extends AlarmSystemState {
 	private static AlarmState instance;
-	private Password password = new Password();
 
 	private AlarmState() {
 	}
@@ -21,8 +20,8 @@ public class AlarmState extends AlarmSystemState {
 
 	@Override
 	public void handleEvent(EnterPasswordEvent event, int number) {
-		if (password.entry(number)) {
-			if (NotReadyState.count < 3) {
+		if (Password.instance().entry(number)) {
+			if (AlarmSystemContext.instance().getCount() < 3) {
 				AlarmSystemContext.instance()
 						.changeState(NotReadyState.instance());
 			} else {
@@ -34,14 +33,14 @@ public class AlarmState extends AlarmSystemState {
 
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
-		NotReadyState.count--;
-		System.out.println(NotReadyState.count);
+		AlarmSystemContext.instance().decrement();
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
-		NotReadyState.count++;
-		System.out.println(NotReadyState.count);
+		AlarmSystemContext.instance().increment();
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	@Override
@@ -51,8 +50,7 @@ public class AlarmState extends AlarmSystemState {
 
 	@Override
 	public void leave() {
-		// TODO Auto-generated method stub
-
+		Password.instance().clear();
 	}
 
 }

@@ -3,6 +3,8 @@ package states;
 import events.EnterPasswordEvent;
 import events.TimerRanOutEvent;
 import events.TimerTickedEvent;
+import events.ZoneCheckEvent;
+import events.ZoneUncheckEvent;
 import password.Password;
 import timer.Notifiable;
 import timer.Timer;
@@ -10,18 +12,17 @@ import timer.Timer;
 public class WarningState extends AlarmSystemState implements Notifiable {
 	private static WarningState instance;
 	private Timer timer;
-	private Password password = new Password();
 
 	/**
-	 * Private for the singleton pattern
+	 * Private constructor for the singleton pattern
 	 */
 	private WarningState() {
 	}
 
 	/**
-	 * For singleton
+	 * returns the instance
 	 * 
-	 * @return the object
+	 * @return this object
 	 */
 	public static WarningState instance() {
 		if (instance == null) {
@@ -32,8 +33,8 @@ public class WarningState extends AlarmSystemState implements Notifiable {
 
 	@Override
 	public void handleEvent(EnterPasswordEvent event, int number) {
-		if (password.entry(number)) {
-			if (NotReadyState.count < 3) {
+		if (Password.instance().entry(number)) {
+			if (AlarmSystemContext.instance().getCount() < 3) {
 				AlarmSystemContext.instance()
 						.changeState(NotReadyState.instance());
 			} else {
@@ -41,6 +42,18 @@ public class WarningState extends AlarmSystemState implements Notifiable {
 						.changeState(ReadyState.instance());
 			}
 		}
+	}
+
+	@Override
+	public void handleEvent(ZoneUncheckEvent event) {
+		AlarmSystemContext.instance().decrement();
+		System.out.println(AlarmSystemContext.instance().getCount());
+	}
+
+	@Override
+	public void handleEvent(ZoneCheckEvent event) {
+		AlarmSystemContext.instance().increment();
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	/**
@@ -56,14 +69,15 @@ public class WarningState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(TimerRanOutEvent event) {
+		AlarmSystemContext.instance().showTimeLeft(0, null);
 		AlarmSystemContext.instance().changeState(AlarmState.instance());
 	}
 
 	@Override
 	public void enter() {
-		// TODO Auto-generated method stub
-		timer = new Timer(this, 15);
+		timer = new Timer(this, 20);
 		AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue(), null);
+
 	}
 
 	@Override
@@ -71,6 +85,7 @@ public class WarningState extends AlarmSystemState implements Notifiable {
 		timer.stop();
 		timer = null;
 		AlarmSystemContext.instance().showTimeLeft(0, null);
+		Password.instance().clear();
 	}
 
 }
