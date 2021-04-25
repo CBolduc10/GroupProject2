@@ -5,8 +5,6 @@ import events.ZoneUncheckEvent;
 
 public class NotReadyState extends AlarmSystemState {
 	private static NotReadyState instance;
-	// private int count = 0;
-	static int count = 0;
 
 	/**
 	 * Private constructor for the singleton pattern
@@ -33,37 +31,28 @@ public class NotReadyState extends AlarmSystemState {
 
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
-		count++;
-		System.out.println(count);
-		if (count == 3) {
+		AlarmSystemContext.instance().increment();
+		System.out.println(AlarmSystemContext.instance().getCount());
+		if (AlarmSystemContext.instance().getCount() == 3) {
 			AlarmSystemContext.instance().changeState(ReadyState.instance());
 		}
 	}
 
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
-		count--;
-		System.out.println(count);
+		AlarmSystemContext.instance().decrement();
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	@Override
 	public void enter() {
-		// TODO Auto-generated method stub
 		AlarmSystemContext.instance().showNotReady();
-		// count--;
-		System.out.println(count);
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	@Override
 	public void leave() {
-		// TODO Auto-generated method stub
 		AlarmSystemContext.instance().showReady();
 	}
-
-	/*
-	 * public int getCount() { return count; }
-	 * 
-	 * public void setCount(int count) { this.count = count; }
-	 */
 
 }

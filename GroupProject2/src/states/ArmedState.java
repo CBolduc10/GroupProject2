@@ -6,7 +6,6 @@ import events.ZoneUncheckEvent;
 
 public class ArmedState extends AlarmSystemState {
 	private static ArmedState instance;
-	private boolean armedStateValue;
 
 	/**
 	 * Private constructor for the singleton pattern
@@ -28,8 +27,8 @@ public class ArmedState extends AlarmSystemState {
 
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
-		NotReadyState.count--;
-		if (armedStateValue) {
+		AlarmSystemContext.instance().decrement();
+		if (AlarmSystemContext.instance().getArmedStateValue()) {
 			AlarmSystemContext.instance().changeState(AlarmState.instance());
 		} else {
 			AlarmSystemContext.instance().changeState(WarningState.instance());
@@ -43,15 +42,14 @@ public class ArmedState extends AlarmSystemState {
 
 	@Override
 	public void handleEvent(MotionDetectionEvent event) {
-		if (!armedStateValue) {
+		if (!AlarmSystemContext.instance().getArmedStateValue()) {
 			AlarmSystemContext.instance().changeState(WarningState.instance());
 		}
 	}
 
 	@Override
 	public void enter() {
-		armedStateValue = ReadyState.armedStateValue;
-		if (armedStateValue) {
+		if (AlarmSystemContext.instance().getArmedStateValue()) {
 			AlarmSystemContext.instance().showStay();
 		} else {
 			AlarmSystemContext.instance().showAway();

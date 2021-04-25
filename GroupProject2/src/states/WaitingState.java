@@ -10,10 +10,8 @@ import timer.Timer;
 public class WaitingState extends AlarmSystemState implements Notifiable {
 	private static WaitingState instance;
 	private Timer timer;
-	private boolean armedStateValue;
 	private String away = "away";
 	private String stay = "stay";
-	// private int count;
 
 	/**
 	 * Private for the singleton pattern
@@ -35,18 +33,14 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
-		NotReadyState.count--;
-		// count--;
-		// NotReadyState.instance().setCount(count);
-		System.out.println(NotReadyState.count);
+		AlarmSystemContext.instance().decrement();
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
-		NotReadyState.count++;
-		// count++;
-		// NotReadyState.instance().setCount(count);
-		System.out.println(NotReadyState.count);
+		AlarmSystemContext.instance().increment();
+		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
 	/**
@@ -54,7 +48,7 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(TimerTickedEvent event) {
-		if (ReadyState.armedStateValue) {
+		if (AlarmSystemContext.instance().getArmedStateValue()) {
 			AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue(),
 					stay);
 		} else {
@@ -69,7 +63,7 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	@Override
 	public void handleEvent(TimerRanOutEvent event) {
 		AlarmSystemContext.instance().showTimeLeft(0, null);
-		if (NotReadyState.count < 3) {
+		if (AlarmSystemContext.instance().getCount() < 3) {
 			AlarmSystemContext.instance().changeState(NotReadyState.instance());
 		} else {
 			AlarmSystemContext.instance().changeState(ArmedState.instance());
@@ -83,9 +77,8 @@ public class WaitingState extends AlarmSystemState implements Notifiable {
 	 */
 	@Override
 	public void enter() {
-		armedStateValue = ReadyState.armedStateValue;
 		timer = new Timer(this, 5);
-		if (armedStateValue) {
+		if (AlarmSystemContext.instance().getArmedStateValue()) {
 			AlarmSystemContext.instance().showTimeLeft(timer.getTimeValue(),
 					stay);
 		} else {
