@@ -3,6 +3,13 @@ package states;
 import events.ZoneCheckEvent;
 import events.ZoneUncheckEvent;
 
+/**
+ * This class represents the Not Ready state.
+ * 
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
+ *
+ */
 public class NotReadyState extends AlarmSystemState {
 	private static NotReadyState instance;
 
@@ -13,9 +20,9 @@ public class NotReadyState extends AlarmSystemState {
 	}
 
 	/**
-	 * returns the instance
+	 * Provides an instance as it adheres to the singleton pattern
 	 * 
-	 * @return this object
+	 * @return the only instance
 	 */
 	public static NotReadyState instance() {
 		if (instance == null) {
@@ -25,31 +32,43 @@ public class NotReadyState extends AlarmSystemState {
 	}
 
 	/**
-	 * handle ZoneCheckEvent event
+	 * Process zone check event and increment count. If count is 3, then this
+	 * indicates all zone are checked and the context switches to the Ready
+	 * state.
 	 * 
+	 * @param event
 	 */
-
 	@Override
 	public void handleEvent(ZoneCheckEvent event) {
 		AlarmSystemContext.instance().increment();
-		System.out.println(AlarmSystemContext.instance().getCount());
 		if (AlarmSystemContext.instance().getCount() == 3) {
 			AlarmSystemContext.instance().changeState(ReadyState.instance());
 		}
 	}
 
+	/**
+	 * Process zone un-check event and decrement count
+	 * 
+	 * @param event
+	 */
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
 		AlarmSystemContext.instance().decrement();
-		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
+	/**
+	 * Upon entering the state, the context indicates to the display to show the
+	 * system is not ready.
+	 */
 	@Override
 	public void enter() {
 		AlarmSystemContext.instance().showNotReady();
-		System.out.println(AlarmSystemContext.instance().getCount());
 	}
 
+	/**
+	 * Upon exiting the state, the context indicates to the display to show the
+	 * system is ready.
+	 */
 	@Override
 	public void leave() {
 		AlarmSystemContext.instance().showReady();

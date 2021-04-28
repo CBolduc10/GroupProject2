@@ -1,11 +1,17 @@
 package events;
 
+/**
+ * This class represents the Away arming operation.
+ * 
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
+ *
+ */
 public class AwayEvent extends AlarmSystemEvent {
 	private static AwayEvent instance;
-	private boolean value = true;
 
 	/**
-	 * Private for singleton
+	 * Private constructor for singleton
 	 * 
 	 */
 	private AwayEvent() {
@@ -13,7 +19,7 @@ public class AwayEvent extends AlarmSystemEvent {
 	}
 
 	/**
-	 * For the singleton pattern
+	 * Provides an instance as it adheres to the singleton pattern
 	 * 
 	 * @return the only instance
 	 */
@@ -23,7 +29,4 @@ public class AwayEvent extends AlarmSystemEvent {
 		}
 		return instance;
 	}
-	
-	//@Override
-	//public 
 }

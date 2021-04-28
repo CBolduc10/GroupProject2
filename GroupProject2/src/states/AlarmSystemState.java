@@ -10,6 +10,12 @@ import events.TimerTickedEvent;
 import events.ZoneCheckEvent;
 import events.ZoneUncheckEvent;
 
+/**
+ * Super class for all states
+ * 
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
+ */
 public abstract class AlarmSystemState {
 
 	/**

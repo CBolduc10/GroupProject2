@@ -5,21 +5,23 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 /**
- * The abstract GUI JButton object. Helps to get rid of conditionals
+ * The abstract GUI Button object. Helps to get rid of conditionals
  *
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Danield Renaud and Zachary
+ *         Boling-Green
  */
-public abstract class GUIButton extends Button implements EventHandler<ActionEvent> {
-    /**
-     * Create the button with the proper text. Makes the button a listener to
-     * clicks on itself.
-     * 
-     * @param string
-     *            the text
-     */
+public abstract class GUIButton extends Button
+		implements EventHandler<ActionEvent> {
 
-    public GUIButton(String string) {
-        super(string);
-        setOnAction(this);
-    }
+	/**
+	 * Create the button with the proper text. Makes the button a listener to
+	 * clicks on itself.
+	 * 
+	 * @param string the text
+	 */
+	public GUIButton(String string) {
+		super(string);
+		setOnAction(this);
+	}
 
 }

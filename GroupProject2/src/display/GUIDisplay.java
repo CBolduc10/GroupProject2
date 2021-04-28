@@ -8,33 +8,11 @@ import buttons.MotionDetectorButton;
 import buttons.NumericButton;
 import buttons.StayButton;
 import buttons.ZoneCheckBox;
-
-/**
- * 
- * @author Brahma Dathan and Sarnath Ramnath
- * @Copyright (c) 2010
- 
- * Redistribution and use with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   - the use is for academic purpose only
- *   - Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *   - Neither the name of Brahma Dathan or Sarnath Ramnath
- *     may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * The authors do not make any claims regarding the correctness of the code in this module
- * and are not responsible for any loss or damage resulting from its use.  
- */
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-//import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -44,7 +22,10 @@ import javafx.stage.WindowEvent;
 import states.AlarmSystemContext;
 
 /**
- * GUI to implement the MicrowaveDisplay interface A pretty elementary interface
+ * GUI to implement the AlarmSystemDisplay interface.
+ * 
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
  *
  */
 public class GUIDisplay extends Application implements AlarmSystemDisplay {
@@ -197,30 +178,42 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
 				});
 	}
 
-	// Show ready
+	/**
+	 * Updates the message TextField to display "Ready"
+	 */
 	@Override
 	public void showReady() {
 		message.setText("Ready");
 	}
 
-	// Show not ready
+	/**
+	 * Updates the message TextField to display "Not Ready"
+	 */
 	@Override
 	public void showNotReady() {
 		message.setText("Not Ready");
 	}
 
-	// Show stay
+	/**
+	 * Updates the message TextField to display "Stay Alarmed"
+	 */
 	@Override
 	public void showStay() {
 		message.setText("Stay Alarmed");
 	}
 
-	// Show away
+	/**
+	 * Updates the message TextField to display "Away Alarmed"
+	 */
 	@Override
 	public void showAway() {
 		message.setText("Away Alarmed");
 	}
 
+	/**
+	 * Updates the message TextField to display time remaining and corresponding
+	 * text.
+	 */
 	@Override
 	public void showTimeLeft(int value, String string) {
 		if (string == null) {
@@ -230,15 +223,24 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
 		}
 	}
 
+	/**
+	 * Updates the message TextField to display "Security Breached"
+	 */
 	public void showBreached() {
 		message.setText("Security Breached");
 	}
 
+	/**
+	 * Updates the message TextField to display "Enter Password to Cancel"
+	 */
 	@Override
 	public void showEnterPassword() {
 		message.setText("Enter Password to Cancel");
 	}
 
+	/**
+	 * Updates the message TextField to display the password as it's entered.
+	 */
 	@Override
 	public void showPassword(String passwordEntry) {
 		message.setText(passwordEntry);
