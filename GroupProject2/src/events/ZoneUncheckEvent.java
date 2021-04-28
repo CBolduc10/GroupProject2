@@ -1,10 +1,17 @@
 package events;
 
+/**
+ * This class represents the zone un-check operation/event.
+ * 
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
+ *
+ */
 public class ZoneUncheckEvent extends AlarmSystemEvent {
 	private static ZoneUncheckEvent instance;
 
 	/**
-	 * Private for singleton
+	 * Private constructor for singleton
 	 * 
 	 */
 	private ZoneUncheckEvent() {
@@ -12,7 +19,7 @@ public class ZoneUncheckEvent extends AlarmSystemEvent {
 	}
 
 	/**
-	 * For the singleton pattern
+	 * Provides an instance as it adheres to the singleton pattern
 	 * 
 	 * @return the only instance
 	 */

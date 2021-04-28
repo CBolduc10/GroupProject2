@@ -1,10 +1,17 @@
 package events;
 
+/**
+ * This class represents the motion detection operation/event.
+ * 
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
+ *
+ */
 public class MotionDetectionEvent extends AlarmSystemEvent {
 	private static MotionDetectionEvent instance;
 
 	/**
-	 * Private for singleton
+	 * Private constructor for singleton
 	 * 
 	 */
 	private MotionDetectionEvent() {
@@ -12,7 +19,7 @@ public class MotionDetectionEvent extends AlarmSystemEvent {
 	}
 
 	/**
-	 * For the singleton pattern
+	 * Provides an instance as it adheres to the singleton pattern
 	 * 
 	 * @return the only instance
 	 */

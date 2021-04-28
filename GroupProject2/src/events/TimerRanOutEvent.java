@@ -3,12 +3,14 @@ package events;
 /**
  * Represents the TimerRanOut event.
  *
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
  */
 public class TimerRanOutEvent extends AlarmSystemEvent {
 	private static TimerRanOutEvent instance;
 
 	/**
-	 * Private for singleton
+	 * Private constructor for singleton
 	 * 
 	 */
 	private TimerRanOutEvent() {
@@ -16,7 +18,7 @@ public class TimerRanOutEvent extends AlarmSystemEvent {
 	}
 
 	/**
-	 * For the singleton pattern
+	 * Provides an instance as it adheres to the singleton pattern
 	 * 
 	 * @return the only instance
 	 */

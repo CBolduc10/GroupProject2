@@ -5,8 +5,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import states.AlarmSystemContext;
 
+/**
+ * The CancelButton class is for when the Cancel button of the GUI is clicked,
+ * as part of the AlarmSystem's button hierarchy.
+ * 
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Danield Renaud and Zachary
+ *         Boling-Green
+ */
 public class CancelButton extends GUIButton
 		implements EventHandler<ActionEvent> {
+
 	/**
 	 * Create the button with the proper display
 	 * 
@@ -16,6 +24,10 @@ public class CancelButton extends GUIButton
 		super(string);
 	}
 
+	/**
+	 * Upon receiving an ActionEvent, the GUI event is delivered to
+	 * AlarmSystemContext for event handling.
+	 */
 	@Override
 	public void handle(ActionEvent event) {
 		AlarmSystemContext.instance().handleEvent(CancelEvent.instance());

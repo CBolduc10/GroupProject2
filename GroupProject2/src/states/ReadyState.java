@@ -4,6 +4,13 @@ import events.AwayEvent;
 import events.StayEvent;
 import events.ZoneUncheckEvent;
 
+/**
+ * This class represents the Ready state.
+ * 
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
+ *
+ */
 public class ReadyState extends AlarmSystemState {
 	private static ReadyState instance;
 
@@ -14,9 +21,9 @@ public class ReadyState extends AlarmSystemState {
 	}
 
 	/**
-	 * returns the instance
+	 * Provides an instance as it adheres to the singleton pattern
 	 * 
-	 * @return this object
+	 * @return the only instance
 	 */
 	public static ReadyState instance() {
 		if (instance == null) {
@@ -26,8 +33,10 @@ public class ReadyState extends AlarmSystemState {
 	}
 
 	/**
-	 * handle stay event
+	 * Processes the stay event, setting the context's armed state value to true
+	 * and prompting a switch to the waiting state.
 	 * 
+	 * @param event
 	 */
 	@Override
 	public void handleEvent(StayEvent event) {
@@ -36,8 +45,10 @@ public class ReadyState extends AlarmSystemState {
 	}
 
 	/**
-	 * handle away event
+	 * Processes the away event, setting the context's armed state value to
+	 * false and prompting a switch to the waiting state.
 	 * 
+	 * @param event
 	 */
 	@Override
 	public void handleEvent(AwayEvent event) {
@@ -46,8 +57,10 @@ public class ReadyState extends AlarmSystemState {
 	}
 
 	/**
-	 * handle zone unchecked event
+	 * Process zone un-check event and decrement count. Prompts context to
+	 * switch to Not Ready state.
 	 * 
+	 * @param event
 	 */
 	@Override
 	public void handleEvent(ZoneUncheckEvent event) {
@@ -55,6 +68,10 @@ public class ReadyState extends AlarmSystemState {
 		AlarmSystemContext.instance().changeState(NotReadyState.instance());
 	}
 
+	/**
+	 * Upon entering the state, the context indicates to the display to show
+	 * that the system is in the Ready state.
+	 */
 	@Override
 	public void enter() {
 		AlarmSystemContext.instance().showReady();

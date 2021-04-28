@@ -4,7 +4,8 @@ package events;
  * This class represents a clock tick. The object contains the amount of time
  * left in the timer.
  * 
- * @author Brahma Dathan
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
+ *         Boling-Green
  *
  */
 public class TimerTickedEvent extends AlarmSystemEvent {
@@ -20,7 +21,7 @@ public class TimerTickedEvent extends AlarmSystemEvent {
 	}
 
 	/**
-	 * Needed for display purposes
+	 * Used to display the remaining time.
 	 */
 	public int getTimeLeft() {
 		return timeLeft;
