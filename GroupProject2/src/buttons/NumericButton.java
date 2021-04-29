@@ -10,16 +10,15 @@ import states.AlarmSystemContext;
  * as part of the AlarmSystem's button hierarchy. It converts the GUI button
  * string into a number that represents each specific button's numeric value.
  * 
- * @author Ethan Nunn, Brian Le, Colin Bolduc, Danield Renaud and Zachary
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
  *         Boling-Green
  */
-public class NumericButton extends GUIButton
-		implements EventHandler<ActionEvent> {
+public class NumericButton extends GUIButton implements EventHandler<ActionEvent> {
 	private int number;
 
 	/**
-	 * Create the button with the proper display. Parses the string as a number
-	 * to be passed with the event.
+	 * Create the button with the proper display. Parses the string as a number to
+	 * be passed with the event.
 	 * 
 	 * @param string the text to be put
 	 */
@@ -35,7 +34,6 @@ public class NumericButton extends GUIButton
 	 */
 	@Override
 	public void handle(ActionEvent event) {
-		AlarmSystemContext.instance().handleEvent(EnterPasswordEvent.instance(),
-				number);
+		AlarmSystemContext.instance().handleEvent(EnterPasswordEvent.instance(), number);
 	}
 }

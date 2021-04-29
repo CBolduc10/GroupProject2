@@ -1,7 +1,8 @@
+/application/
 /buttons/
-/password/
 /display/
 /events/
+/password/
+/start/
 /states/
 /timer/
-/start/
