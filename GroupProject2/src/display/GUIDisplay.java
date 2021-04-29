@@ -91,8 +91,8 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
 		zone3Check = new ZoneCheckBox("Zone 3");
 
 		/**
-		 * Creates three GridPane objects, one for keypad, one for the
-		 * textField, and the third for the zones / control buttons.
+		 * Creates three GridPane objects, one for keypad, one for the textField, and
+		 * the third for the zones / control buttons.
 		 */
 
 		GridPane controlPane = new GridPane();
@@ -120,8 +120,7 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
 		keypadPane.setPadding(new Insets(5, 5, 0, 5));
 
 		/**
-		 * add all keypad buttons and format them into a standard layout in
-		 * their pane.
+		 * add all keypad buttons and format them into a standard layout in their pane.
 		 */
 		keypadPane.add(numeric1Button, 0, 0);
 		keypadPane.add(numeric2Button, 1, 0);
@@ -152,9 +151,9 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
 
 		/**
 		 * Sets hbox to include two columns, with keypadPane on the left, and
-		 * textFieldPane on the right. Then, sets vbox to include the hbox on
-		 * the top, and controlPane on the bottom. This gives us a three sector
-		 * layout for the security GUI.
+		 * textFieldPane on the right. Then, sets vbox to include the hbox on the top,
+		 * and controlPane on the bottom. This gives us a three sector layout for the
+		 * security GUI.
 		 */
 		hbox.getChildren().addAll(keypadPane, textFieldPane);
 		vbox.getChildren().addAll(hbox, controlPane);
@@ -169,13 +168,12 @@ public class GUIDisplay extends Application implements AlarmSystemDisplay {
 
 		}
 		primaryStage.show();
-		primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
-				new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent window) {
-						System.exit(0);
-					}
-				});
+		primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent window) {
+				System.exit(0);
+			}
+		});
 	}
 
 	/**

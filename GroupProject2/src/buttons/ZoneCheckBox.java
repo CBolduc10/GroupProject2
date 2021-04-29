@@ -10,11 +10,10 @@ import states.AlarmSystemContext;
  * The ZoneCheckBox class is for when a zone checkbox of the GUI is selected or
  * unselected, as part of the AlarmSystem's checkbox hierarchy.
  * 
- * @author Ethan Nunn, Brian Le, Colin Bolduc, Danield Renaud and Zachary
+ * @author Ethan Nunn, Brian Le, Colin Bolduc, Daniel Renaud and Zachary
  *         Boling-Green
  */
-public class ZoneCheckBox extends GUICheckBox
-		implements EventHandler<ActionEvent> {
+public class ZoneCheckBox extends GUICheckBox implements EventHandler<ActionEvent> {
 
 	/**
 	 * Create the checkbox with the proper display
@@ -33,11 +32,9 @@ public class ZoneCheckBox extends GUICheckBox
 	@Override
 	public void handle(ActionEvent event) {
 		if (!this.isSelected()) {
-			AlarmSystemContext.instance()
-					.handleEvent(ZoneUncheckEvent.instance());
+			AlarmSystemContext.instance().handleEvent(ZoneUncheckEvent.instance());
 		} else {
-			AlarmSystemContext.instance()
-					.handleEvent(ZoneCheckEvent.instance());
+			AlarmSystemContext.instance().handleEvent(ZoneCheckEvent.instance());
 		}
 	}
 }
